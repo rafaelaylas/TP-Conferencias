@@ -10,7 +10,7 @@ const conferencesApi = require('./routes/conferences.js');
 
 const usersApi = require('./routes/users');
 
-// const userMoviesApi = require('./routes/userMovies');
+ const userConferencesApi = require('./routes/userConferences');
 
 
 //middleWare de body parser
@@ -21,7 +21,7 @@ app.use(cors());
 //routes
 conferencesApi(app);
 usersApi(app);
-// userMoviesApi(app);
+userConferencesApi(app);
 
 
 app.listen(config.port, function(){
