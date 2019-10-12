@@ -15,10 +15,12 @@ const CarouselItem = (props) => {
       id, cover, title, year, contentRating,
       duration, isList, slug, source
     });
-  }
+  };
+
   const handleDeleteFavorite = (itemId) => {
     props.deteleFavorite(itemId);
-  }
+  };
+
   return (
     <div className="carousel-item">
       <img className="carousel-item__img" src={cover} alt={title} />

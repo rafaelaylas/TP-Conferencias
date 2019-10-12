@@ -21,7 +21,11 @@ function conferencesApi(app) {
       const conferences = await conferencesService.getConferences({ tags });
 
       res.status(200).json({
-        data: conferences,
+        data: {
+          "mylist": [],
+          "trends": conferences,
+          "originals": [],
+        },
         message: 'conferences listed'
       });
     } catch (err) {
