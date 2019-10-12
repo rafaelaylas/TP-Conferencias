@@ -24,14 +24,14 @@ const Home = ({ myList, trends, originals }) => (
         </Carousel>
       </Categories>
     )}
-    <Categories title="Tendencias">
+    <Categories title="Software Technology">
       <Carousel>
         {trends.map(item => (
           <CarouselItem key={item._id} {...item} />
         ))}
       </Carousel>
     </Categories>
-    <Categories title="Originales de Platfix">
+    <Categories title="Cloud Services">
       <Carousel>
         {originals.map(item =>
           <CarouselItem key={item._id} {...item} />

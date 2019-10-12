@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { logoutRequest } from "../actions";
 import gravatar from '../utils/gravatar';
 import '../assets/styles/components/Header.scss';
-import logo from '../assets/static/logo-platzi-video-BW2.png';
+import logo from '../assets/static/logo.png';
 import userIcon from '../assets/static/user-icon.png';
 
 const Header = props => {
@@ -22,7 +22,7 @@ const Header = props => {
   return (
     <header className={HeaderClass}>
       <Link to="/">
-        <img className="header__img" src={logo} alt="Platzi Video" />
+        <img className="header__img" src={logo} alt="Conferencias" />
       </Link>
       <div className="header__menu">
         <div className="header__menu--profile">
