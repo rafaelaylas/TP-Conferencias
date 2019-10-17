@@ -4,10 +4,9 @@ import '../assets/styles/components/Header.scss';
 import logo from '../assets/static/logo-platzi-video-BW2.png';
 import userIcon from '../assets/static/user-icon.png';
 
-const Header = (props) => (
+const Header = () => (
   <header className="header">
     <img className="header__img" src={logo} alt="Platzi Video" />
-    {/* {if(!storage.getUser()) } */}
     <div className="header__menu">
       <div className="header__menu--profile">
         <img src={userIcon} alt="" />
@@ -18,7 +17,10 @@ const Header = (props) => (
         <li><a href="/">Cerrar Sesión</a></li>
       </ul>
     </div>
-    {props.children}
+    <div className="header__menu">
+      <div>Estoy logeado</div>
+      <div>Salir</div>
+    </div>
   </header>
 );
 
