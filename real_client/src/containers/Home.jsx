@@ -7,11 +7,19 @@ import Carousel from "../components/Carousel";
 import CarouselItem from "../components/CarouselItem";
 import Footer from "../components/Footer";
 import conferencesApi from "../hooks/conferencesApi";
+// import userConferencesApi from "../hooks/userConferencesApi";
 
 const API = 'http://localhost:3006/api/conferences';
 
+// const apiPersist = 'http://localhost:3006/api/user-conferences/';
+
+
 const Home = () =>{
   const initialState = conferencesApi(API);
+
+  // console.log(userConferencesApi(apiPersist));
+
+  
 
   return (
     <Layout>

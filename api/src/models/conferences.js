@@ -6,6 +6,7 @@ const conferenceTitleSchema =  joi.string().max(80).required();
 const conferenceDateSchema =  joi.string().max(80).required();
 const conferenceTypeSchema =  joi.string().max(80).required();
 const conferenceSpeakerSchema =  joi.string().max(80).required()
+const conferenceUserSchema =  joi.array().optional()
 
 
 const createConferenceSchema = {

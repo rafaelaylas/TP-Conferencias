@@ -24,6 +24,24 @@ function userConferencesApi(app) {
       }
     }
     );
+  
+    router.get(('/:userId'),
+    async function(req, res, next) {
+      const { userId } = req.params;
+
+      try {
+        const userIDConference = await userConferencesService.getUserConferences({ userId });
+
+        res.status(200).json({
+          data: userIDConference,
+          message: 'userIdConference retrieved'
+        });
+      } catch (err) {
+        next(err);
+      }
+    }
+    );
+
 
   router.post('/', 
    async function(
