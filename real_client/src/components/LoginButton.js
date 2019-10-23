@@ -5,6 +5,7 @@ import '../assets/styles/loginButton.css'
 const LoginButton = ({ onLogin }) => {
     
   const facebookLoginHandler = (response) =>{
+    
     if(response.status === "connected"){
         // leer datos del usuario
         // Llamar a la funcion onLogin de nuestro componente padre 
