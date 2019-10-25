@@ -8,7 +8,7 @@ import CarouselItem from "../components/CarouselItem";
 import Footer from "../components/Footer";
 import conferencesApi from "../hooks/conferencesApi";
 import userConferenceApi from "../hooks/userConferenceApi";
-
+import searchConferenceApi from "../hooks/searchConferenceApi"
 
 const API = 'http://localhost:3006/api/conferences';
 
@@ -16,21 +16,37 @@ const API2 = 'http://localhost:3006/api/conferences/conferenceByUser/22479292853
 
 
 
-const Home = () =>{
+// const handleSearch= async (search) =>{
+//   const responseJson = await searchConferenceApi(search);
+//   console.log(responseJson.result)
+//  }
+const Home = () =>{ 
+  // let userId = 0;
+  // window.FB.getLoginStatus(response => {
+  //   if(response.status === "connected") {
+  //       // leer los datos del usuario
+  //        userId = response.authResponse.userID 
+  //   }
+  // });
+
   const initialState = conferencesApi(API);
 
   const listConference = userConferenceApi(API2);
+  console.log('InitialState');
    console.log(initialState);
    console.log(listConference);
+   
+  
   return (
     <Layout>
       <Header />
       <Search />
+      {/* <Search handleSearch={handleSearch} /> */}
 
-      {initialState.mylist && initialState.mylist.length > 0 && (
+      {listConference.mylist && listConference.mylist.length > 0 && (
         <Categories title="Mi lista">
           <Carousel>
-            {initialState.mylist.map(item =>
+            {listConference.mylist.map(item =>
               <CarouselItem key={item.id} {...item} />
             )}
           </Carousel>

@@ -81,7 +81,9 @@ function conferencesApi(app) {
         const conferences = await conferencesService.getByUser({ userId });
 
         res.status(200).json({
-          data: conferences,
+          data: {
+            "mylist": conferences
+          },
           message: 'conference user retrieved'
         });
       } catch (err) {
