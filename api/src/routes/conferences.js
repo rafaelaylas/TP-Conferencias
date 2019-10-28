@@ -142,12 +142,15 @@ function conferencesApi(app) {
 
         const conference = await conferencesService.getConference({ conferenceId });
 
-        if(!Array.isArray(conference.user)){
-          conference.user = [];
+        if(!Array.isArray(conference.users)){
+          conference.users = [];
         }
        
-        const positionUser = conference.user.indexOf(userId)
-        conference.user.splice(positionUser, 1)
+        const positionUser = conference.users.indexOf(userId)
+        console.log(conference)
+        console.log(conference.users)
+        console.log(positionUser)
+        conference.users.splice(positionUser, 1)
     
         const updatedConferenceId = await conferencesService.updateConference({
           conferenceId,

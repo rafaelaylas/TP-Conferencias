@@ -28,6 +28,7 @@ export default class EliminarConferencia extends React.Component {
     }
     ApiController.deleteConference(data);
     this.setState({ open: false });
+    window.location.reload();
   };
 
   handleClose = () => {

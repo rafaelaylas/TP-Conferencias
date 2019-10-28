@@ -31,11 +31,11 @@ const LoginButton = ({ onLogin }) => {
   
   return (
     <div className="logginWrapper">
-      <Link onClick={facebookLogin} className="login" to="/">
+      <a onClick={facebookLogin} className="login">
         <span>
           Conectame con facebook
         </span>
-      </Link>
+      </a>
     </div>
 )  
 }

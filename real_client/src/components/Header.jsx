@@ -3,23 +3,15 @@ import {Link} from 'react-router-dom';
 import '../assets/styles/components/Header.scss';
 import logo from '../assets/static/conferenceGroup.png';
 import userIcon from '../assets/static/user-icon.png';
+import Login from './Login';
 
 const Header = () => (
   <header className="header">
-    <img className="header__img" src={logo} alt="Conference" />
-    <div className="header__menu">
-      <div className="header__menu--profile">
-        <img src={userIcon} alt="" />
-        <p>Perfil</p>
-      </div>
-      <ul>
-        <li><Link to="/login">Cuenta</Link></li>
-        <li><a href="/">Cerrar Sesión</a></li>
-      </ul>
+    <div className="logotexto"> 
+      <h1>Portal Conferencias</h1>
     </div>
     <div className="header__menu">
-      <div>Estoy logeado</div>
-      <div>Salir</div>
+      <div><Login /></div>
     </div>
   </header>
 );

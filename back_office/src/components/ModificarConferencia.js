@@ -43,6 +43,8 @@ export default class ModificarConferencia extends React.Component {
     // console.log(data);
     ApiController.updateConference(data);
     this.setState({ open: false });
+    window.location.reload();
+
   };
   handleClose = () => {
     this.setState({ open: false });

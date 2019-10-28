@@ -9,10 +9,12 @@ import Footer from "../components/Footer";
 import conferencesApi from "../hooks/conferencesApi";
 import userConferenceApi from "../hooks/userConferenceApi";
 import searchConferenceApi from "../hooks/searchConferenceApi"
+import * as storage from '../utils/storage'
+
+
 
 const API = 'http://localhost:3006/api/conferences';
 
-const API2 = 'http://localhost:3006/api/conferences/conferenceByUser/2247929285317327';
 
 
 
@@ -21,33 +23,30 @@ const API2 = 'http://localhost:3006/api/conferences/conferenceByUser/22479292853
 //   console.log(responseJson.result)
 //  }
 const Home = () =>{ 
-  // let userId = 0;
-  // window.FB.getLoginStatus(response => {
-  //   if(response.status === "connected") {
-  //       // leer los datos del usuario
-  //        userId = response.authResponse.userID 
-  //   }
-  // });
+ 
+  const infoUser =  storage.getUser();
 
+  let listConference = null;
+
+  if(infoUser){
+    const API2 = `http://localhost:3006/api/conferences/conferenceByUser/${infoUser.id}`;
+    listConference = userConferenceApi(API2);
+  }
+  
+  
   const initialState = conferencesApi(API);
-
-  const listConference = userConferenceApi(API2);
-  console.log('InitialState');
-   console.log(initialState);
-   console.log(listConference);
-   
   
   return (
     <Layout>
       <Header />
-      <Search />
+      {/* <Search /> */}
       {/* <Search handleSearch={handleSearch} /> */}
 
-      {listConference.mylist && listConference.mylist.length > 0 && (
+      {listConference && listConference.mylist && listConference.mylist.length > 0 && (
         <Categories title="Mi lista">
           <Carousel>
             {listConference.mylist.map(item =>
-              <CarouselItem key={item.id} {...item} />
+              <CarouselItem key={item._id} {...item} from="user" />
             )}
           </Carousel>
         </Categories>
@@ -56,7 +55,7 @@ const Home = () =>{
       <Categories title="Conferencias">
         <Carousel>
           {initialState && initialState.trends && initialState.trends.map(item =>
-            <CarouselItem key={item.id} {...item} />
+            <CarouselItem key={item._id} {...item} from="general" />
           )}
         </Carousel>
       </Categories>

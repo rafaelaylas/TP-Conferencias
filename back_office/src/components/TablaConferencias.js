@@ -37,7 +37,8 @@ function createData(item,idArray)
     title: item.title, 
     date: item.date,
     type :item.type,
-    speaker : item.speaker
+    speaker : item.speaker,
+    users : item.users,
     
   };
 }
@@ -68,11 +69,12 @@ function getSorting(order, orderBy) {
 }
 
 const rows = [
-  { id: 'cover', numeric: false, disablePadding: true, label: 'Cover' },
   { id: 'title', numeric: false, disablePadding: true, label: 'Title' },
   { id: 'Date', numeric: false, disablePadding: true, label: 'Date' },
   { id: 'Speaker', numeric: false, disablePadding: false, label: 'Speaker' },
+  { id: 'Count', numeric: true, disablePadding: false, label: 'Suscriptors' },
   { id: 'Action', numeric: false, disablePadding: false, label: 'Action' },  
+  { id: 'Action2', numeric: false, disablePadding: false, label: '' },  
 ];
 
 class EnhancedTableHead extends React.Component {
@@ -299,7 +301,6 @@ class TablaConferencias extends React.Component
       newArray.push(createData(newData.data.trends[i],i));
     }
     this.setState({data: newArray});
-    console.log(newArray);
     // console.log(this.state.data);
   }
   componentDidMount()
@@ -346,11 +347,11 @@ class TablaConferencias extends React.Component
                         <Checkbox checked={isSelected} />
                       </TableCell>
                       <TableCell component="th" scope="row" padding="none">
-                        {n.cover}
+                        {n.title}
                       </TableCell>
-                      <TableCell align="center">{n.title}</TableCell>
                       <TableCell align="center">{n.date}</TableCell>
                       <TableCell align="center">{n.speaker}</TableCell>
+                      <TableCell align="center">{n.users.length}</TableCell>
                       <TableCell align="center"><ModificarConferencia value={ n }></ModificarConferencia></TableCell>
                       <TableCell align="center"><EliminarConferencia value={ n }></EliminarConferencia></TableCell>
                      
