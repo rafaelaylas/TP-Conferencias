@@ -17,8 +17,9 @@ export default class ModificarConferencia extends React.Component {
       cover: this.props.value.cover,
       title: this.props.value.title,
       date: this.props.value.date,
-      type: this.props.value.type,
-      speaker: this.props.value.speaker
+      description: this.props.value.description,
+      speaker: this.props.value.speaker,
+      infoSpeaker: this.props.value.infoSpeaker
     };
   }
 
@@ -35,8 +36,9 @@ export default class ModificarConferencia extends React.Component {
         cover : this.state.cover,
         title : this.state.title,
         date : this.state.date,
-        type : this.state.type,
-        speaker : this.state.speaker
+        description : this.state.description,
+        speaker : this.state.speaker,
+        infoSpeaker : this.state.infoSpeaker
 
       }
     }
@@ -62,13 +64,15 @@ export default class ModificarConferencia extends React.Component {
   onChangeDate = (e)=>{
     this.setState({date : e.target.value});
   }
-  onChangeType = (e)=>{
-    this.setState({type : e.target.value});
+  onChangeDescription = (e)=>{
+    this.setState({description : e.target.value});
   }
   onChangeSpeaker = (e)=>{
     this.setState({speaker : e.target.value});
   }
-
+  onChangeInfoSpeaker = (e) =>{
+    this.setState({infoSpeaker : e.target.value});
+  }
   render() {
     return (
       <div>
@@ -115,13 +119,15 @@ export default class ModificarConferencia extends React.Component {
               onChange = {this.onChangeDate.bind(this)}
             />
             <TextField
+              multiline
+              rowsMax="4"
               margin="dense"
-              id="type"
-              label="Type"
+              id="description"
+              label="Description"
               type="text"
               fullWidth
-              value={this.state.type}
-              onChange = {this.onChangeType.bind(this)}
+              value={this.state.description}
+              onChange = {this.onChangeDescription.bind(this)}
             />
             <TextField
               margin="dense"
@@ -131,6 +137,15 @@ export default class ModificarConferencia extends React.Component {
               fullWidth
               value={this.state.speaker}
               onChange = {this.onChangeSpeaker.bind(this)}
+            />
+             <TextField
+              margin="dense"
+              id="infoSpeaker"
+              label="InfoSpeaker"
+              type="text"
+              fullWidth
+              value={this.state.infoSpeaker}
+              onChange = {this.onChangeInfoSpeaker.bind(this)}
             />
           </DialogContent>
           <DialogActions>

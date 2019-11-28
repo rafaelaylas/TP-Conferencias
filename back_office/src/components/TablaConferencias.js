@@ -36,8 +36,9 @@ function createData(item,idArray)
     cover: item.cover,
     title: item.title, 
     date: item.date,
-    type :item.type,
+    description :item.description,
     speaker : item.speaker,
+    infoSpeaker : item.infoSpeaker,
     users : item.users,
     
   };
@@ -351,7 +352,7 @@ class TablaConferencias extends React.Component
                       </TableCell>
                       <TableCell align="center">{n.date}</TableCell>
                       <TableCell align="center">{n.speaker}</TableCell>
-                      <TableCell align="center">{n.users.length}</TableCell>
+                      <TableCell align="center">{n.users ? n.users.length: 0}</TableCell>
                       <TableCell align="center"><ModificarConferencia value={ n }></ModificarConferencia></TableCell>
                       <TableCell align="center"><EliminarConferencia value={ n }></EliminarConferencia></TableCell>
                      

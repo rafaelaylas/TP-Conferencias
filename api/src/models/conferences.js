@@ -14,7 +14,7 @@ const createConferenceSchema = {
     cover: conferenceCoverSchema.required(),
     title: conferenceTitleSchema.required(),
     date: conferenceDateSchema.required(),
-    type: conferenceTypeSchema.required(),
+    description: conferenceTypeSchema.required(),
     speaker: conferenceSpeakerSchema.required()
 
 }
@@ -24,7 +24,7 @@ const updateConferenceSchema = {
     cover: conferenceCoverSchema,
     title: conferenceTitleSchema,
     date: conferenceDateSchema,
-    type: conferenceTypeSchema,
+    description: conferenceTypeSchema,
     speaker: conferenceSpeakerSchema
 
 }

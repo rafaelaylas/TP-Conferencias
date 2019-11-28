@@ -11,7 +11,20 @@ function Login() {
   const onLogin = (newUser) => {
     // almacenar los datos en el localStorage
     storage.setUser(newUser);
+    
     setUser(newUser);
+
+    fetch(`http://localhost:3006/api/users/`
+    , {
+      method: 'POST', // or 'PUT'
+      body: JSON.stringify(newUser), // data can be `string` or {object}!
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+    .catch(error => console.error('Error:', error))
+
+    
     window.location.reload();
   }
 

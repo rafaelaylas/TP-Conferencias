@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+// import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -8,6 +8,34 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import ApiController from '../controller/ApiController';
 
+const API = 'http://localhost:3006/api/conferences';
+const API2 = 'http://localhost:3006/api/users';
+
+var conferencias;
+
+ fetch(API)
+    .then(function(response) {
+      if (!response.ok) {
+        throw new Error("HTTP error, status = " + response.status);
+      }
+      return response.json();
+    })
+    .then(data => conferencias = data)
+     .then(() => console.log(conferencias))
+
+
+  var users;
+
+ fetch(API2)
+    .then(function(response) {
+      if (!response.ok) {
+        throw new Error("HTTP error, status = " + response.status);
+      }
+      return response.json();
+    })
+    .then(data => users = data)
+     .then(() => console.log(users))
+     
 export default class EliminarConferencia extends React.Component {
   constructor(props)
   {
@@ -59,6 +87,9 @@ export default class EliminarConferencia extends React.Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
+
+            {/* logica de envio de email a suscriptores */}
+
             <Button onClick={this.handleDelete} color="primary">
               Eliminar
             </Button>

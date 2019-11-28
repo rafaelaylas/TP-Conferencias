@@ -18,8 +18,9 @@ export default class CrearConferencia extends Component {
       cover: '',
       title:'',
       date:'',
-      type:'',
-      speaker:''
+      description:'',
+      speaker:'',
+      infoSpeaker: ''
     };
   }
 
@@ -37,11 +38,13 @@ export default class CrearConferencia extends Component {
           cover : this.state.cover,
           title : this.state.title,
           date : this.state.date,
-          type : this.state.type,
-          speaker : this.state.speaker
+          description : this.state.description,
+          speaker : this.state.speaker,
+          infoSpeaker : this.state.infoSpeaker
       };
       ApiController.insertConference(data);
       this.setState({ open: false });
+      window.location.reload();
 
     //this.setState({ open: false });
   };
@@ -56,11 +59,14 @@ export default class CrearConferencia extends Component {
   onChangeTitle = (e)=>{
     this.setState({title : e.target.value});
   }
-  onChangeType = (e)=>{
-    this.setState({type : e.target.value});
+  onChangeDescription = (e)=>{
+    this.setState({description : e.target.value});
   }
   onChangeSpeaker = (e)=>{
     this.setState({speaker : e.target.value});
+  }
+  onChangeInfoSpeaker = (e) =>{
+    this.setState({infoSpeaker : e.target.value});
   }
   render() {
     return (
@@ -107,13 +113,15 @@ export default class CrearConferencia extends Component {
               onChange = {this.onChangeDate.bind(this)}
             />
             <TextField
+              multiline
+              rowsMax="4"
               margin="dense"
-              id="type"
-              label="Type"
+              id="description"
+              label="Description"
               type="text"
               fullWidth
-              value={this.state.type}
-              onChange = {this.onChangeType.bind(this)}
+              value={this.state.description}
+              onChange = {this.onChangeDescription.bind(this)}
             />
             <TextField
               margin="dense"
@@ -124,7 +132,15 @@ export default class CrearConferencia extends Component {
               value={this.state.speaker}
               onChange = {this.onChangeSpeaker.bind(this)}
             />
-            
+            <TextField
+              margin="dense"
+              id="infoSpeaker"
+              label="InfoSpeaker"
+              type="text"
+              fullWidth
+              value={this.state.infoSpeaker}
+              onChange = {this.onChangeInfoSpeaker.bind(this)}
+            />
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">

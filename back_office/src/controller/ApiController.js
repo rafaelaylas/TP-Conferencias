@@ -1,11 +1,10 @@
 import {Component} from 'react';
-
-const url ="http://localhost:8080/apiAgenda/";
-const urlGetContactos="leerAgenda";
-const urlGetContactosById="leerAgenda/idBusqueda";
-const urlInsertContacto="/insertContacto/Contacto";
-const urlUpdateContacto='/updateContacto/Contacto';
-const urlDeleteContacto='/deleteContacto/Contacto';
+// const url ="http://localhost:8080/apiAgenda/";
+// const urlGetContactos="leerAgenda";
+// const urlGetContactosById="leerAgenda/idBusqueda";
+// const urlInsertContacto="/insertContacto/Contacto";
+// const urlUpdateContacto='/updateContacto/Contacto';
+// const urlDeleteContacto='/deleteContacto/Contacto';
 
 class ApiController extends Component
 {
@@ -83,7 +82,7 @@ class ApiController extends Component
             return response.json();
         }).then((rta)=> { console.log("Respuesta",rta)})
         
-    }
+    }      
     deleteConference(data)
     {
         console.log("idConferencia a eliminar: ",data.idConference);

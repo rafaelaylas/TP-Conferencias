@@ -28,6 +28,22 @@ function usersApi(app) {
     }
   });
 
+  router.get(('/:email'),
+    async function(req, res, next) {
+      const { email } = req.params;
+
+      try {
+        const users = await usersService.getUser({ email });
+
+        res.status(200).json({
+          data: users,
+          message: 'conference retrieved'
+        });
+      } catch (err) {
+        next(err);
+      }
+    }
+    );
   router.post('/', async function(
     req,
     res,

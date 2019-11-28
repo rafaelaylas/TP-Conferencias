@@ -1,52 +1,67 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import Header from '../components/Header';
-import Carousel from '../components/Carousel';
-import CarouselItem from '../components/CarouselItem';
-import Categories from '../components/Categories';
-import Search from '../components/Search';
-import '../assets/styles/Home.scss';
+import React from "react";
+import Layout from "../components/Layout";
+import Header from "../components/Header";
+// import Search from "../components/Search";
+import Categories from "../components/Categories";
+import Carousel from "../components/Carousel";
+import CarouselItem from "../components/CarouselItem";
+import Footer from "../components/Footer";
+import conferencesApi from "../hooks/conferencesApi";
+import userConferenceApi from "../hooks/userConferenceApi";
+// import searchConferenceApi from "../hooks/searchConferenceApi"
+import * as storage from '../utils/storage'
 
-const Home = ({ myList, trends, originals }) => (
-  <>
-    <Header />
-    <Search isHome />
-    {myList.length > 0 && (
-      <Categories title="Mi lista">
+
+
+const API = 'http://localhost:3006/api/conferences';
+
+
+
+
+// const handleSearch= async (search) =>{
+//   const responseJson = await searchConferenceApi(search);
+//   console.log(responseJson.result)
+//  }
+const Home = () =>{ 
+ 
+  const infoUser =  storage.getUser();
+
+  let listConference = null;
+
+  if(infoUser){
+    const API2 = `http://localhost:3006/api/conferences/conferenceByUser/${infoUser.id}`;
+    listConference = userConferenceApi(API2);
+  }
+  
+  
+  const initialState = conferencesApi(API);
+  
+  return (
+    <Layout>
+      <Header />
+
+      {listConference && listConference.mylist && listConference.mylist.length > 0 && (
+        <Categories title="Mi lista">
+          <Carousel>
+            {listConference.mylist.map(item =>
+              <CarouselItem key={item._id} {...item} from="user" />
+            )}
+          </Carousel>
+        </Categories>
+      )}
+
+      <Categories title="Conferencias">
         <Carousel>
-          {myList.map(item => (
-            <CarouselItem
-              key={item.id}
-              {...item}
-              isList
-            />
-          ))}
+          {initialState && initialState.trends && initialState.trends.map(item =>
+            <CarouselItem key={item._id} {...item} from="general" />
+          )}
         </Carousel>
       </Categories>
-    )}
-    <Categories title="Software Technology">
-      <Carousel>
-        {trends.map(item => (
-          <CarouselItem key={item._id} {...item} />
-        ))}
-      </Carousel>
-    </Categories>
-    <Categories title="Cloud Services">
-      <Carousel>
-        {originals.map(item =>
-          <CarouselItem key={item._id} {...item} />
-        )}
-      </Carousel>
-    </Categories>
-  </>
-);
 
-const mapStateToProps = state => {
-  return {
-    myList: state.myList,
-    trends: state.trends,
-    originals: state.originals
-  };
+      <Footer />
+    </Layout>
+  )
 };
 
-export default connect(mapStateToProps, null)(Home);
+
+export default Home;

@@ -14,13 +14,21 @@ class UsersService {
   }
   
   async getUser({ email }) {
-    const [user] = this.mongoDB.getAll(this.collection, { email});
+    const [user] = await this.mongoDB.getAll(this.collection, { email});
     return user;
   }
 
   async createUser({ user }) {
-    const createUserId = await this.mongoDB.create(this.collection, user);
-    return createUserId;
+
+    const result = await this.getUser(user);
+
+    if(!result){
+      const createUserId = await this.mongoDB.create(this.collection, user);
+      return createUserId;
+    }
+    return null;
+
+    
   }
 }
 
