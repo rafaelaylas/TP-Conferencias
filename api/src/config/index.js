@@ -7,8 +7,8 @@ const config = {
   dbPassword: process.env.DB_PASSWORD,
   dbHost: process.env.DB_HOST,
   dbName: process.env.DB_NAME,
-    
-
+  mailgunKey: process.env.MAILGUN_KEY,
+  mailgunDomain: process.env.MAILGUN_DOMAIN,
 };
 
 module.exports = { config };

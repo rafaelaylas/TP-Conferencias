@@ -1,5 +1,6 @@
 const express = require('express');
 const ConferencesService = require('../services/conferences');
+const UsersService = require('../services/users');
 
 // const {
 //   conferenceIdSchema,
@@ -13,9 +14,10 @@ function conferencesApi(app) {
   app.use('/api/conferences', router);
 
   const conferencesService = new ConferencesService();
+  const userService = new UsersService();
 
   router.get('/', async function(req, res) {
-   
+
     var query = {};
     if(req.query.favorite) query.favorite = req.query.favorite;
     if(req.query.search) query.search = req.query.search;
@@ -36,7 +38,7 @@ function conferencesApi(app) {
     //     if(!conferences) return res.json({status : 404, error : "Contact not found"});
 
     //     return res.json(conferences);
-    // });  
+    // });
 
       res.status(200).json({
         data: {
@@ -45,7 +47,7 @@ function conferencesApi(app) {
           "originals": [],
         },
         message: 'conferences listed'
-       
+
       });
       console.log(res.data)
     } catch (err) {
@@ -72,7 +74,7 @@ function conferencesApi(app) {
 
 
     // Obtener las conferencia de un usuario
-    router.get(('/conferenceByUser/:userId'),
+  router.get(('/conferenceByUser/:userId'),
     async function(req, res, next) {
       const { userId } = req.params;
 
@@ -145,13 +147,13 @@ function conferencesApi(app) {
         if(!Array.isArray(conference.users)){
           conference.users = [];
         }
-       
+
         const positionUser = conference.users.indexOf(userId)
         console.log(conference)
         console.log(conference.users)
         console.log(positionUser)
         conference.users.splice(positionUser, 1)
-    
+
         const updatedConferenceId = await conferencesService.updateConference({
           conferenceId,
           conference
@@ -184,7 +186,7 @@ function conferencesApi(app) {
         if( !conference.users.includes(userId)){
           conference.users.push(userId);
         }
-    
+
         const updatedConferenceId = await conferencesService.updateConference({
           conferenceId,
           conference
@@ -200,12 +202,31 @@ function conferencesApi(app) {
     }
   );
 
+  router.get(('/sendmail/:conferenceId'),
+      async function(req, res, next) {
+        const { conferenceId } = req.params;
+        try {
+          await conferencesService.sendMailCancelConference({ conferenceId });
+          res.status(200).json({
+            message: 'send'
+          });
+        } catch (err) {
+          next(err);
+        }
+      }
+  );
+
   router.delete(
     '/:conferenceId',
     async function(req, res, next) {
       const { conferenceId } = req.params;
-
       try {
+
+        const conference = await conferencesService.getConference({ conferenceId });
+        if(Array.isArray(conference.users) && conference.users.length > 0){
+          await conferencesService.sendMailCancelConference({ conferenceId });
+        }
+
         const deletedConferenceId = await conferencesService.deleteConference({ conferenceId });
 
         res.status(200).json({

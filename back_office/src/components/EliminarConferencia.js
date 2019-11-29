@@ -35,19 +35,22 @@ var conferencias;
     })
     .then(data => users = data)
      .then(() => console.log(users))
-     
+
 export default class EliminarConferencia extends React.Component {
   constructor(props)
   {
     super(props);
     this.state = {
-      open: false,
-      idConference:''
+        open: false,
+        idConference:'',
+        has_users: false,
     };
+
+
   }
 
   handleClickOpen = () => {
-    this.setState({ open: true });
+    this.setState({ open: true, has_users: !!this.props.value.users.length });
   };
   handleDelete = () => {
     console.log("props",this.props);
@@ -79,9 +82,10 @@ export default class EliminarConferencia extends React.Component {
           <DialogTitle id="form-dialog-title">Eliminar Conferencia</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Esta seguro que desea eliminar la conferencia ?.
+               Esta seguro que desea eliminar la conferencia?
+                { this.state.has_users && <div>Esta conferencia tiene usuarios inscriptos, si elimina se notificará por mail a los inscriptos que se canceló la conferencia.</div> }
             </DialogContentText>
-            
+
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">

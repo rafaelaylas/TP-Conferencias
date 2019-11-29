@@ -12,9 +12,9 @@ class UsersService {
     const users = await this.mongoDB.getAll(this.collection, query);
     return users || [];
   }
-  
-  async getUser({ email }) {
-    const [user] = await this.mongoDB.getAll(this.collection, { email});
+
+  async getUser({ id }) {
+    const [user] = await this.mongoDB.getAll(this.collection, { id});
     return user;
   }
 
@@ -28,7 +28,7 @@ class UsersService {
     }
     return null;
 
-    
+
   }
 }
 

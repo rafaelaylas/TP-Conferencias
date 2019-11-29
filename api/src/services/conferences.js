@@ -1,9 +1,13 @@
 const MongoLib = require('../lib/mongo');
+const UsersService = require('../services/users');
+const SendMail = require('../services/sendMail');
 
 class ConferencesService {
   constructor() {
     this.collection = 'conferences';
     this.mongoDB = new MongoLib();
+    this.userService = new UsersService();
+    this.sendMail = new SendMail();
   }
 
 // en tag me viene el query del endpoint
@@ -14,7 +18,7 @@ class ConferencesService {
     if (query.search) {
       queryMongo = {
         $or: [
-          {'speaker': {'$regex': query.search, '$options': 'i'}}, 
+          {'speaker': {'$regex': query.search, '$options': 'i'}},
           {'title': {'$regex': query.search, '$options': 'i'}}
         ]
       }
@@ -53,6 +57,25 @@ class ConferencesService {
   async deleteConference({ conferenceId }) {
     const deletedConferenceId = await this.mongoDB.delete(this.collection, conferenceId);
     return deletedConferenceId;
+  }
+
+  async sendMailCancelConference({ conferenceId }){
+
+    const conference = await this.getConference({ conferenceId });
+    if(Array.isArray(conference.users) && conference.users.length > 0){
+      const mailsList = [];
+
+      for( let id of conference.users){
+        const result = await this.userService.getUser({id});
+        mailsList.push(result.email);
+      }
+
+      console.log(mailsList);
+
+      if(mailsList.length > 0){
+        this.sendMail.sendList(mailsList, { conference });
+      }
+    }
   }
 }
 

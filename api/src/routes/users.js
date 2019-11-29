@@ -28,12 +28,12 @@ function usersApi(app) {
     }
   });
 
-  router.get(('/:email'),
+  router.get(('/:id'),
     async function(req, res, next) {
-      const { email } = req.params;
+      const { id } = req.params;
 
       try {
-        const users = await usersService.getUser({ email });
+        const users = await usersService.getUser({ id });
 
         res.status(200).json({
           data: users,
