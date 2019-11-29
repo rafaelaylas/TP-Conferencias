@@ -50,7 +50,7 @@ export default class EliminarConferencia extends React.Component {
   }
 
   handleClickOpen = () => {
-    this.setState({ open: true, has_users: !!this.props.value.users.length });
+    this.setState({ open: true, has_users: this.props.value.users && !!this.props.value.users.length });
   };
   handleDelete = () => {
     console.log("props",this.props);

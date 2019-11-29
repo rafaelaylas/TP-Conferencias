@@ -11,7 +11,7 @@ class SendMail {
     const data = {
       from: 'Conferencias <me@samples.mailgun.org>',
       subject: `La conferencia ${conference.title} fue cancelada ☠️`,
-      text: `Lo sentimos la conferencia ${conference.title} del ${conference.date} fue fue cancelada 😢`,
+      text: `Lo sentimos la conferencia ${conference.title} del ${conference.date} fue cancelada 😢.`,
     };
     mailsList.forEach( email => {
       this.sendTo({ ...data, to: email  })
